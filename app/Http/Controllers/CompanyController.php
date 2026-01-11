@@ -6,7 +6,6 @@ use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use App\Repositories\CompanyRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class CompanyController extends Controller
 {
@@ -22,7 +21,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = $this->companyRepository->getAllCompanies();
+        $companies = $this->companyRepository->getCompaniesWithPaginate();
         return view('company.index',compact('companies'));
     }
 
@@ -43,8 +42,7 @@ class CompanyController extends Controller
             $this->companyRepository->createCompany($request->validated());
             return redirect()->route('companies.index')->with('success', 'Company created successfully.');
         } catch (\Exception $e) {
-            Log::error('Error creating company: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'An error occurred while creating the company.');
+            return redirect()->back()->with('error', 'An error occurred while creating the company: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -73,8 +71,7 @@ class CompanyController extends Controller
             $this->companyRepository->updateCompany($company->id, $request->validated());
             return redirect()->route('companies.index')->with('success', 'Company updated successfully.');
         } catch (\Exception $e) {
-            Log::error('Error updating company: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'An error occurred while updating the company.');
+            return redirect()->back()->with('error', 'An error occurred while updating the company: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -87,8 +84,7 @@ class CompanyController extends Controller
             $this->companyRepository->deleteCompany($company->id);
             return redirect()->route('companies.index')->with('success', 'Company deleted successfully.');
         } catch (\Exception $e) {
-            Log::error('Error deleting company: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'An error occurred while deleting the company.');
+            return redirect()->back()->with('error', 'An error occurred while deleting the company: ' . $e->getMessage());
         }
     }
 }

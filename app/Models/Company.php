@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
+    /** @use HasFactory<\Database\Factories\EmployeeFactory> */
     use HasFactory;
 
     protected $fillable = [
@@ -15,4 +16,9 @@ class Company extends Model
         'logo',
         'website',
     ];
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

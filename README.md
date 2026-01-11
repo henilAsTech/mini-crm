@@ -21,5 +21,9 @@ NPM 10.9
    php artisan make:seeder CompanySeeder
 
 5) Make Company CRUD.
-   create model, controller migration via command
+   create model, controller, migration using command
    php artisan make:model Company -crm
+
+6) Make Employee CRUD.
+   create model, controller, migratiom using command
+   php artisan make:model Employee -crm

@@ -17,7 +17,12 @@ class CompanyRepository implements CompanyRepositoryInterface
 
     public function getAllCompanies()
     {
-        return $this->modelName::orderByDesc('id')->paginate(10);
+        return $this->modelName::orderBy('name', 'asc')->get();
+    }
+
+    public function getCompaniesWithPaginate()
+    {
+        return $this->modelName::orderBy('id', 'desc')->paginate(10);
     }
 
     public function createCompany(array $data)

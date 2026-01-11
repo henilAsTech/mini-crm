@@ -25,15 +25,21 @@ class CompanyRequest extends FormRequest
         return [
             // 'name' => 'required|string|max:255|unique:companies,name,' . $this->route('company')->id ?? 'NULL',
             'name' => [
-                    'required',
-                    'string',
-                    'max:255',
-                    Rule::unique('companies', 'name')
-                        ->ignore(optional($this->route('company'))->id),
-                ],
-            'email' => 'nullable|email|max:255',
-            'logo' => 'nullable|image|dimensions:min_width=100,min_height=100',
-            'website' => 'nullable|url|max:255',
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('companies', 'name')
+                    ->ignore(optional($this->route('company'))->id),
+            ],
+            'email' => [
+                'nullable',
+                'email',
+                'max:255',
+                Rule::unique('companies', 'email')
+                    ->ignore(optional($this->route('company'))->id),
+            ],
+            'logo' => ['nullable', 'image', 'dimensions:min_width=100, min_height=100'],
+            'website' => ['nullable', 'url', 'max:255'],
         ];
     }
 
