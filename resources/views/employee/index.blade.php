@@ -29,7 +29,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($employees as $key => $employee)
+                                @forelse ($employees as $key => $employee)
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-4 py-2 border">{{ $employees->firstItem() + $key }}</td>
                                         <td class="px-4 py-2 border">{{ $employee->first_name ?? '-' }}</td>
@@ -42,7 +42,7 @@
                                             {{ $employee->phone ?? '-' }}    
                                         </td>
                                         <td class="px-4 py-2 border">
-                                            <img src="{{ asset('storage/employee/' . $employee->profile_picture ?? 'logo.png') }}" alt="profile" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                            <img src="{{ asset('storage/profile_pictures/' . $employee->profile_picture ?? 'logo.png') }}" alt="profile" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
                                         </td>
                                         <td class="px-4 py-2 border">
                                             <form action="{{ route('employees.destroy', $employee->id) }}" method="post">
@@ -51,13 +51,22 @@
                                                 <a href="{{ route('employees.edit', $employee->id) }}" class="text-blue-600 hover:underline">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
+                                                <a href="{{ route('employees.show', $employee->id) }}" class="text-blue-600 hover:underline">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </a>
                                                 <button type="submit" class="text-red-600 hover:underline ms-4" onclick="return confirm('Are you sure you want to delete this employee?')">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="8" class="px-4 py-2 border text-center">
+                                            No employees found.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

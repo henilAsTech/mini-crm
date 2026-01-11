@@ -32,6 +32,9 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     {
         $employee = $this->modelName::findOrFail($id);
         if(isset($data['profile_picture'])) {
+            if ($employee->profile_picture) {
+                Storage::disk('public')->delete('profile_pictures/'.$employee->profile_picture);
+            }
             $data['profile_picture'] = $this->storeProfilePicture($data['profile_picture']);
         }
         $employee->update($data);
@@ -41,13 +44,16 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function deleteEmployee(int $id)
     {
         $employee = $this->modelName::findOrFail($id);
+        if ($employee->profile_picture) {
+            Storage::disk('public')->delete('profile_pictures/'.$employee->profile_picture);
+        }
         return $employee->destroy($id);
     }
 
     protected function storeProfilePicture($image)
     {
         if ($image) {
-            $imagePath = public_path('employee');
+            $imagePath = public_path('profile_pictures');
             if (!file_exists($imagePath)) {
                 mkdir($imagePath, 0755, true);
             }
@@ -55,7 +61,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             $imageName = md5(time().'_'.$image->getClientOriginalName()). '.' . $image->getClientOriginalExtension();
 
             Storage::disk('public')->putFileAs(
-                'employee',
+                'profile_pictures',
                 $image,
                 $imageName
             );

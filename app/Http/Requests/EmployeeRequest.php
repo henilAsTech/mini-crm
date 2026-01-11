@@ -34,7 +34,20 @@ class EmployeeRequest extends FormRequest
                 Rule::unique('employees')->ignore($this->employee)    
             ],
             'phone' => ['nullable', 'string', 'min:10', 'max:12'],
-            'profile_picture' => ['nullable', 'image', 'mimes:png,jpeg', 'max:1024'],
+            'profile_picture' => [
+                'nullable', 
+                'image', 
+                'mimes:png,jpeg', 
+                'max:1024',
+                function ($attribute, $value, $fail) {
+                    if ($value) {
+                        $extension = strtolower($value->getClientOriginalExtension());
+                        if (!in_array($extension, ['jpeg', 'png'])) {
+                            $fail('The profile picture must be a JPEG or PNG file.');
+                        }
+                    }
+                },
+            ],
         ];
     }
 

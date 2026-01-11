@@ -38,6 +38,9 @@ class CompanyRepository implements CompanyRepositoryInterface
         $company = $this->modelName::findOrFail($id);
 
         if (isset($data['logo'])) {
+            if ($company->logo) {
+                Storage::disk('public')->delete('logos/'.$company->logo);
+            }
             $data['logo'] = $this->storeImage($data['logo']);
         }
         $company->update($data);
@@ -47,13 +50,16 @@ class CompanyRepository implements CompanyRepositoryInterface
     public function deleteCompany(int $id)
     {
         $company = $this->modelName::findOrFail($id);
+        if ($company->logo) {
+            Storage::disk('public')->delete('logos/'.$company->logo);
+        }
         return $company->delete();
     }
 
     protected function storeImage($image)
     {
         if ($image) {
-            $imagePath = public_path('company');
+            $imagePath = public_path('logos');
             if (!file_exists($imagePath)) {
                 mkdir($imagePath, 0755, true);
             }
@@ -61,7 +67,7 @@ class CompanyRepository implements CompanyRepositoryInterface
             $imageName = md5(time().'_'.$image->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
             
             Storage::disk('public')->putFileAs(
-                'company',
+                'logos',
                 $image,
                 $imageName
             );

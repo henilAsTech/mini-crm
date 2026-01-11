@@ -16,6 +16,11 @@ class Employee extends Model
         'profile_picture',
     ];
 
+    public function getFullnameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
     public function company()
     {
         return $this->belongsTo(Company::class);
