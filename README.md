@@ -4,11 +4,11 @@ A Simple Relationship management system for managing companies and employees bui
 
 
 System Configutation
-Compser
-PHP >= 8.2
-MySql 
-Node
-NPM
+`Compser`
+`PHP >= 8.2`
+`MySql` 
+`Node`
+`NPM`
 
 # Installation Steps
 1) Download the project Or Clone from github URL
@@ -20,23 +20,22 @@ NPM
    ->`npm install`
 
 4) Build Frontend assets
-   ->`npm run dev`
-   ->`npm run build`
+   ->`npm run dev` & `npm run build`
 
 5) Enviroment Configuration
    ->Copy the .env.example file and create the .env file
    ->update the below details as per your system database name, username and password
-      DB_DATABASE=mini_crm
-      DB_USERNAME=your_database_username
-      DB_PASSWORD=your_password
+      `DB_DATABASE=mini_crm`
+      `DB_USERNAME=your_database_username`
+      `DB_PASSWORD=your_password`
 
 6) Create a Database `mini_crm` in your MySql
 
 7) Run Migration & Seed the admin user credentials 
    ->`php artisan migrate --seed`
    Credentials:
-      email: admin@admin.com
-      password: password
+      `email: admin@admin.com`
+      `password: password`
 
 8) Create Storage Symbolic link
    ->`php artisan storage:link`
@@ -47,52 +46,58 @@ NPM
 
 ## Project Structure
 
+```
 mini-crm/
 ├── app/
 │   ├── Http/
 │   │   ├── Controllers/
 │   │   │   ├── CompanyController.php
-│   │   │   |── EmployeeController.php
-│   │   |── Requests/
+│   │   │   └── EmployeeController.php
+│   │   └── Requests/
 │   │       ├── CompanyRequest.php
-│   │       |── EmployeeRequest.php
-│   |── Models/
-│   |   |── Company.php
-│   |   |── Employee.php
-|   |── Repositories/
-|   |   |── Interfaces
-|   |   |   |── CompanyRepositoryInterface
-|   |   |   |── EmployeeRepositoryInterface
-|   |   |── CompanyRepository
-|   |   |── EmployeeRepository
-
+│   │       └── EmployeeRequest.php
+│   ├── Models/
+│   │   ├── Company.php
+│   │   └── Employee.php
+│   └── Repositories/
+│       ├── Interfaces/
+│       │   ├── CompanyRepositoryInterface.php
+│       │   └── EmployeeRepositoryInterface.php
+│       ├── CompanyRepository.php
+│       └── EmployeeRepository.php
+│
 ├── database/
 │   ├── migrations/
-│   │   ├── xxxx_create_companies_table.php
-│   │   ├── xxxx_create_employees_table.php
+│   │   ├── xxxx_xx_xx_create_companies_table.php
+│   │   └── xxxx_xx_xx_create_employees_table.php
 │   └── seeders/
-│       ├── DatabaseSeeder.php
+│       └── DatabaseSeeder.php
+│
 ├── resources/
-│   ├── views/
+│   └── views/
 │       ├── companies/
+│       │   ├── index.blade.php
 │       │   ├── create.blade.php
 │       │   ├── edit.blade.php
-│       │   ├── index.blade.php
-│       │   ├── show.blade.php
+│       │   └── show.blade.php
 │       ├── employees/
+│       │   ├── index.blade.php
 │       │   ├── create.blade.php
 │       │   ├── edit.blade.php
-│       │   ├── index.blade.php
-│       │   ├── show.blade.php
+│       │   └── show.blade.php
 │       └── dashboard.blade.php
+│
 ├── routes/
-│   ├── web.php
-└── storage/
-    ├── app/
-        ├── public/
-            ├── logos/
-            ├── profile_pictures/
-
+│   └── web.php
+│
+├── storage/
+│   └── app/
+│       └── public/
+│           ├── losos/              # Company logos
+│           └── profile_pictures/   # Employee profile pictures
+│
+└── README.md
+```
 
 ## Validation Rules
 
