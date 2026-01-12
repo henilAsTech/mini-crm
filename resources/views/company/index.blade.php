@@ -14,6 +14,18 @@
                             {{ __('Add New Company') }}
                         </a>
                     </div>
+                    @if (session()->has('success'))
+                        <div id="successMessage" class="alert alert-success mb-4 bg-green-100 text-white px-4 py-3 rounded border border-green-600" style="background-color: green;">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
+
+                    @if (session()->has('error'))
+                        <div id="errorMessage" class="alert alert-danger mb-4 bg-red-100 text-white border border-red-400 text-red-700 px-4 py-3 rounded" style="background-color: red">
+                            {{ session()->get('error') }}
+                        </div>
+                    @endif
+
                     <div class="overflow-x-auto">
                         <table class="w-full border border-gray-300">
                             <thead class="bg-gray-100">
@@ -80,4 +92,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        setTimeout(function() {
+            const message = document.getElementById('successMessage') || document.getElementById('errorMessage');
+            if (message) {
+                message.style.transition = 'opacity 0.5s ease';
+                message.style.opacity = '0';
+                
+                message.hide();
+            }
+        }, 3000); 
+    </script>
 </x-app-layout>
