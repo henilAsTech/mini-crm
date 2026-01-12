@@ -68,7 +68,11 @@
 
                             <div>
                                 <x-input-label for="profile_picture" :value="__('Profile Picture')" />
-                                <img src="{{ asset('storage/profile_pictures/' . $employee->profile_picture) }}" alt="logo" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                @if ($employee->profile_picture)
+                                    <img src="{{ asset('storage/profile_pictures/' . $employee->profile_picture) }}" alt="profile picture" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                @else
+                                    <img src="{{ asset('profile.jpg') }}" alt="default profile picture" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                @endif
 
                                 <input
                                     id="profilePicture"

@@ -16,11 +16,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <h3 class="text-lg font-semibold mb-4">Personal Information</h3>
-                            @if($employee->profile_picture)
-                                <div class="mb-4">
+                            <div class="mb-4">
+                                @if($employee->profile_picture)
                                     <img src="{{ asset('storage/profile_pictures/' . $employee->profile_picture) }}" alt="Profile" class="h-24 w-24 rounded-full">
-                                </div>
-                            @endif
+                                @else
+                                    <img src="{{ asset('profile.jpg') }}" alt="Default Profile" class="h-16 w-16 rounded-full">
+                                @endif
+                            </div>
 
                             <div class="mb-3">
                                 <label class="block text-gray-600 text-sm font-bold mb-1">Full Name:</label>
@@ -50,12 +52,14 @@
                                 </p>
                             </div>
 
-                            @if($employee->company->logo)
-                                <div class="mb-3">
-                                    <label class="block text-gray-600 text-sm font-bold mb-1">Company Logo:</label>
+                            <div class="mb-3">
+                                <label class="block text-gray-600 text-sm font-bold mb-1">Company Logo:</label>
+                                @if ($employee->company->logo)
                                     <img src="{{ asset('storage/logos/' . $employee->company->logo) }}" alt="Company Logo" class="h-16 w-16 rounded">
-                                </div>
-                            @endif
+                                @else
+                                    <img src="{{ asset('logo.png') }}" alt="Default Company Logo" class="h-16 w-16 rounded">    
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -43,7 +43,7 @@
                                 @if($company->logo)
                                     <img src="{{ asset('storage/logos/' . $company->logo) }}" alt="Logo" class="h-16 w-16 rounded">
                                 @else
-                                    <p class="text-gray-900">No logo uploaded</p>
+                                    <img src="{{ asset('logo.png') }}" alt="logo" class="h-16 w-16 rounded">
                                 @endif
                             </div>
                         </div>

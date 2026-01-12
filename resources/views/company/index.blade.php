@@ -54,7 +54,11 @@
                                             @endif
                                         </td>
                                         <td class="px-4 py-2 border">
-                                            <img src="{{ asset('storage/logos/' . $company->logo ?? 'logo.png') }}" alt="logo" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                            @if ($company->logo)
+                                                <img src="{{ asset('storage/logos/' . $company->logo) }}" alt="logo" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                            @else
+                                                <img src="{{ asset('logo.png') }}" alt="default logo" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                            @endif
                                         </td>
                                         <td class="px-4 py-2 border">
                                             <form action="{{ route('companies.destroy', $company->id) }}" method="post">

@@ -44,7 +44,11 @@
 
                             <div>
                                 <x-input-label for="logo" :value="__('Logo')" />
-                                <img src="{{ asset('storage/logos/' . $company->logo) }}" alt="logo" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                @if ($company->logo)
+                                    <img src="{{ asset('storage/logos/' . $company->logo) }}" alt="logo" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                @else
+                                    <img src="{{ asset('logo.png') }}" alt="default logo" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                @endif
                                 <input
                                     id="logo"
                                     name="logo"

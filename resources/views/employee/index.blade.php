@@ -55,7 +55,11 @@
                                             {{ $employee->phone ?? '-' }}    
                                         </td>
                                         <td class="px-4 py-2 border">
-                                            <img src="{{ asset('storage/profile_pictures/' . $employee->profile_picture ?? 'logo.png') }}" alt="profile" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                            @if ($employee->profile_picture)
+                                                <img src="{{ asset('storage/profile_pictures/' . $employee->profile_picture) }}" alt="profile" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                                @else
+                                                <img src="{{ asset('profile.jpg') }}" alt="default profile" class="mb-2 mt-1 w-20 h-20 object-cover rounded-full"/>
+                                            @endif                                            
                                         </td>
                                         <td class="px-4 py-2 border">
                                             <form action="{{ route('employees.destroy', $employee->id) }}" method="post">
